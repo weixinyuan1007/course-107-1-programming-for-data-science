@@ -20,8 +20,8 @@ iPeenData <- read_csv("https://raw.githubusercontent.com/tpemartin/course-107-1-
 library(stringr)
 a <- str_remove_all(iPeenData$均消,"[本店均消元]" )
 iPeenData$consumer <- c(a)
-str_replace(a,",","")
-
+str_replace(a,",","") ->iPeenData$均消
+as.numeric(iPeenData$均消)
 ```
 
 ## 2 
