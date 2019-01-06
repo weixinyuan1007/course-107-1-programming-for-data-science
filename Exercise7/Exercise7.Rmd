@@ -1,0 +1,67 @@
+---
+title: "Exercise 7"
+params:
+  id: 你的學號（留意要與studentID:間空一格）
+  name: 你的名字（留意要與name:間空一格）
+  repoURL: 這個作業的GitHub repo網址（選填）
+date: "01/08/2019"
+---
+作業上傳截止日期：2019-01-08 12:00:00 Asia/Taipei Time (即台灣時間8號中午12點)
+作業上傳網址：https://docs.google.com/forms/d/e/1FAIpQLScyV1OCzaeg-2CeSev6aibpTruGhQ2gg-NeWbCX2EQnK1DxxA/viewform?entry.1232937468=Exercise7
+
+存檔時，請用你的學號當延伸檔名。例如：若你的學號為41078392，則請`File->Save As...`存成Exercise7-41078392.Rmd。
+
+repoURL若有，老師要給你建議時會更容易，但不強迫。
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr); library(stringr); library(lubridate); library(purrr)
+```
+
+## 1. 通識成績與班排
+
+資料引入
+```{r data1}
+library(readr)
+transcriptData <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/transcriptFinal2.csv",col_types = cols(學期成績 = col_double()))
+```
+
+### 1.1 資料有多少位學生
+最後一行必需能在螢幕顯現此值。
+```{r ans11}
+```
+
+
+### 1.2 計算平均成績
+請計算出每個人每學年的**學年平均成績**，存在一個名為gradeEachYear的data frame中，此data frame也請包含**學號,學年,學系,學屆**。最後一行請打gradeEachYear。
+
+```{r ans12}
+```
+
+
+### 1.3 計算PR
+學屆（代表入學年）、學系相同的學生為同班同學。請由平均成績計算各自在班上每學年的**學年PR**值（使用`percent_rank()`再乘上100，即代表在100人中贏過的人數）也存進gradeEachYear裡。（最後一行請打gradeEachYear。）
+
+```{r ans13}
+```
+
+
+### 1.4 學屆PR
+請自transcriptData留下有四年或以上且有完整8學期或以上的學生之成績資料，接著只留下他們前8個學期成績，請稱此篩選後的資料為filteredTranscriptData。接著用filteredTranscriptData來計算這些學生的四年平均總成績並存在新創的grade4Years的data frame中的**學屆平均成績**變數中；此資料請保留學號、學系、學屆，且一個學號只有「一筆」資料。接著再計算各自在班上的學屆PR，且亦存在grade4Years新創的**學屆PR**變數中。（最後一行請打grade4Years供改題檢查上述兩變數的正確性。）
+
+```{r ans14}
+```
+
+### 1.5 通識與PR
+學校近期限制通識每班平均成績在75-85間，原因之一是有不少通識涼課被拿來衝高成績用，但它會影響班排嗎？請計算不含通識成績的學屆PR並存在前一題grade4Years的**學屆PR不含通識**裡。
+
+```{r ans15}
+```
+
+### 1.6 各系PR敏感度
+由grade4Years，我們可以去計算各系PR受通識影響的程度。定義PR差異為：「含通識學屆PR」 減去「不含通識學屆PR」的絕對值（使用`ab s()`計算絕對值），如果通識不影響班排，此值要很接近0。請算出各學系值的中位數。（答案請存在一個名為PRdiffEachDepartment的data frame中，其中變數**學系**為學系，而**PR差異中位數**為對應學系的上述計算值）
+
+```{r ans16}
+```
+
+> 此結果是以四年的平均來看故差異不大，原因之一是通識佔畢業學分很少比例。同學有空時可以想一下，要怎麼衡量通識課對PR的影響比較合理？或更週道。
